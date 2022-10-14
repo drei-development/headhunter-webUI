@@ -1,5 +1,6 @@
 <template>
   <div v-if="text">
+    <p v-if="title">{{title}}: </p>
     <div v-if="editable">
       <input type="text" v-model="value">
       <button @click="toggleCheck">check</button>
@@ -11,6 +12,7 @@
     </div>
   </div>
   <div v-if="number">
+    <p v-if="title">{{title}}: </p>
     <div v-if="editable">
       <input type="number" v-model="value">
       <button @click="toggleCheck">check</button>
@@ -38,6 +40,10 @@ export default defineComponent({
     },
     number: {
       type: Number
+    },
+    title: {
+      type: String,
+      required: false
     }
   },
   emits: [],

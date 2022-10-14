@@ -1,19 +1,19 @@
 <template>
-  <p>Hello</p>
+  <p>Übersicht</p>
   <div v-if="person">
-    <p>{{person.firstName}}</p>
-    <p>{{person.lastName}}</p>
-    <p>{{person.age}}</p>
-    <p>{{person.workingExperience}}</p>
+    <Editfield :title="'Vorname'" :text="person.firstName"/>
+    <Editfield :title="'Nachname'" :text="person.lastName"/>
+    <Editfield :title="'Alter'" :number="person.age"/>
+    <Editfield :title="'Berufserfahrung (Jahre)'" :number="person.workingExperience"/>
 
-    <Editfield :number="person.age"/>
+    <p v-if="message">This is the message: {{message.message}}</p>
   </div>
 </template>
 
 <script lang="ts">
 import {defineComponent, ref} from "vue";
 import {usePeopleStore} from '@/stores/person'
-import type {Person} from '@/stores/person'
+import type {Person, Message} from '@/stores/person'
 import Editfield from "@/components/Editfield.vue";
 
 export default defineComponent({
@@ -28,12 +28,17 @@ export default defineComponent({
 
     const store = usePeopleStore();
 
+    const messages: Message[] = store.getMessages;
+
+    const message = ref<Message>(messages[0]);
+
     const people: Person[] = store.getPeople;
 
     const person = ref<Person>(people[0]);
 
     return {
-      person
+      person,
+      message
     }
   }
 })

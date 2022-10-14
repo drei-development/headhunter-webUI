@@ -77,6 +77,8 @@ function addPersonToStore() {
 
   store.addPerson(person);
 
+  store.postPersonToServer(person);
+
   router.push('/person')
 }
 </script>
